@@ -4,5 +4,7 @@ from .views import index
 urlpatterns = [
   
     path('', index),
-#    path('farse', TemplateView.as_view(template_name='index.html'))
+    path('join', index),
+    path('create', index),
+#    path('example', TemplateView.as_view(template_name='index.html'))
 ]
