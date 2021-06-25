@@ -7,7 +7,7 @@ function HomePage(props) {
     return (
       <Router>
         <Switch>
-          <Route exact path="/"><p>This is the home page</p></Route>
+          <Route exact path="/"><div><p>This is the home page</p></div></Route>
           <Route exact path="/join" component={RoomJoinPage}></Route>
           <Route exact path="/create" component={CreateRoomPage}></Route>
 
