@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import {
   Button, Grid, Typography, TextField, FormControl, FormHelperText,
   Radio, RadioGroup, FormControlLabel
-} from '@material-ui/core'
+} from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
+import { useHistory } from "react-router";
 
 function CreateRoomPage() {
   const defaultVotes = 2;
+  const history = useHistory();
   const [guestCanPause, setGuestCanPause] = useState(true);
   const [votesToSkip, setVotes] = useState(defaultVotes);
   //const [state, setState] = useState(initialState);
@@ -31,11 +32,11 @@ function CreateRoomPage() {
 
     fetch('/api/create-room', requestOptions).then((response) => 
         response.json()
-    ).then((data) => console.log(data));
+    ).then((data) => 
+          history.push('/room/' + data.code));
     
     console.log('hey ms jackson');
-    console.log('hey ms jackson');
-
+  
   }
 
   useEffect(() => {
