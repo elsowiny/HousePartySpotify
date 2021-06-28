@@ -25,6 +25,10 @@ function HomePage(props) {
       )
   }
 
+  function clearRoomCode(){
+        setRoomCode(null);
+  }
+
   useEffect(() => {
 
     async function  isUserInRoom(){
@@ -46,7 +50,11 @@ function HomePage(props) {
           }}></Route>
                   <Route exact path="/join" component={RoomJoinPage}></Route>
                   <Route exact path="/create" component={CreateRoomPage}></Route>
-                  <Route path="/room/:roomCode" component={Room}></Route>
+                  <Route 
+                      path="/room/:roomCode"
+                       render={(props)=>{
+                         return <Room {...props} leaveRoomCallback={clearRoomCode} />;
+                       }}></Route>
 
         </Switch>
       </Router>
