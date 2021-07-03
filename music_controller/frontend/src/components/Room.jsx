@@ -4,6 +4,7 @@ import {Grid, Button, Typography } from '@material-ui/core';
 import { useParams } from "react-router-dom";
 
 import { useHistory } from "react-router";
+import CreateRoomPage from "./CreateRoomPage.jsx";
 
 function Room(props) {
     const history = useHistory();
@@ -12,6 +13,7 @@ function Room(props) {
     const [guestCanPause, setGuestCanPause] = useState(true);
     const [votesToSkip, setVotes] = useState(defaultVotes);
     const [isHost, setIsHost] = useState(false);
+    const [showSettings, setShowSettings] = useState(false);
 
     const roomCode = params.roomCode;
     
@@ -45,7 +47,49 @@ function Room(props) {
             });
     }
 
+
+    const updateShowSettings = (value) =>{
+        setShowSettings(value);
+    }
+
+    const renderSettingsButton = () =>{
+
+      return (
+        <Grid item xs={12} align="center">
+          <Button variant="contained" color="primary" onClick={() => setShowSettings(true) }>
+            Settings
+          </Button>
+        </Grid>
+
+      );
+
+    }
+
+    const renderSettings = () =>{ 
+      return (
+        <Grid container spacing={1}>
+          <Grid item xs={12} align="center">
+            <CreateRoomPage 
+              update={true}
+              votesToSkip={votesToSkip}
+              guestCanPause={guestCanPause}
+             roomCode={roomCode}
+             updateCallBack={null}/>
+            </Grid>
+            <Grid item xs={12} align="center">
+              <Button variant="contained" color="secondary" onClick={() => updateShowSettings(false) } >
+                Close 
+              </Button>
+            </Grid>
+        </Grid>
+      );
+    }
+
+    if(showSettings){
+        return renderSettings();
+    }
     return (
+      
           <Grid container spacing={1}>
                 <Grid item xs={12} align="center">
                     <Typography variant="h4" component="h4">
@@ -67,6 +111,7 @@ function Room(props) {
                       Host: {isHost.toString()}
                     </Typography>
                    </Grid>
+                   {isHost ? renderSettingsButton() : null}
                 <Grid item xs={12} align="center">
                         <Button variant="contained" color="secondary" onClick={leaveButtonPressed}>
                           Leave Room

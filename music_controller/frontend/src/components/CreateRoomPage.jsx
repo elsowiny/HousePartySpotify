@@ -6,11 +6,13 @@ import {
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router";
 
-function CreateRoomPage() {
+function CreateRoomPage(props) {
+  
+
   const defaultVotes = 2;
   const history = useHistory();
   const [guestCanPause, setGuestCanPause] = useState(true);
-  const [votesToSkip, setVotes] = useState(defaultVotes);
+  const [votesToSkip, setVotes] = useState(2);
   //const [state, setState] = useState(initialState);
 
   const handleVotesChange = (e) => {
@@ -44,12 +46,42 @@ function CreateRoomPage() {
     console.log(guestCanPause);
   })
 
+  const title = props.update ? 'Update Room' : 'Create Room';
+
+
+  const renderCreateButtons = () => {
+    return(
+    <Grid container spacing={1}>
+    <Grid item xs={12} align="center">
+        <Button color="primary"
+          variant="contained"
+          onClick={handleRoomButtonPressed}
+        >Create A Room</Button>
+      </Grid>
+      <Grid item xs={12} align="center">
+        <Button color="secondary" variant="contained" to="/" component={Link}>Back</Button>
+      </Grid>
+      </Grid>)
+  }
+
+  const renderUpdateButtons = () => {
+    return(
+    
+    <Grid item xs={12} align="center">
+        <Button color="primary"
+          variant="contained"
+          onClick={handleRoomButtonPressed}
+        >Update Room</Button>
+      </Grid>
+      )
+  }
 
   return (
+    
     <Grid container spacing={1}>
       <Grid item xs={12} align="center">
         <Typography component="h4" variant="h4">
-          Create A Room
+          {title}
         </Typography>
       </Grid>
 
@@ -75,7 +107,7 @@ function CreateRoomPage() {
         <FormControl>
           <TextField required={true}
             type="number"
-            defaultValue={defaultVotes}
+            defaultValue={votesToSkip}
             inputProps={{ min: 1, }}
             onChange={handleVotesChange} />
           <FormHelperText component="div">
@@ -83,19 +115,12 @@ function CreateRoomPage() {
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12} align="center">
-        <Button color="primary"
-          variant="contained"
-          onClick={handleRoomButtonPressed}
-        >Create A Room</Button>
-      </Grid>
-      <Grid item xs={12} align="center">
-        <Button color="secondary" variant="contained" to="/" component={Link}>Back</Button>
-      </Grid>
-
+      
+      {props.update ? renderUpdateButtons() : renderCreateButtons()}
     </Grid>
 
   );
 }
+
 
 export default CreateRoomPage;
