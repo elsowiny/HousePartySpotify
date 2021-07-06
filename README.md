@@ -2,6 +2,13 @@
 
 A music app that allows for special rooms where the host can set settings allowing for a song to be skipped
 depending on votes.
+
+
+make sure to go to the root of the folder, and use python manage.py startserver.
+This will boot up the development server, where the build folder that is created from React app build, will be served.
+
+If making changes to the front end(React), to see the changes, you will need to run the following command:
+npm run build
 ![img](./repoIMG/houseparty.png "app")
 ![img](./repoIMG/createhouse.png "app")
 ![img](./repoIMG/travis.png "app")
